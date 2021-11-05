@@ -1,0 +1,60 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+html, body{
+    height: 100%;
+}
+.center{
+    margin: 0 auto;
+}
+.middleColumn{
+    width: 50%;
+    height: 100%;
+    background-color: slateblue;
+}
+#messages{
+    height: 90%;
+    background-color: sienna;
+    overflow: auto;
+    width: 100%;
+    position: relative;
+}
+#myMessages{
+    max-width: 50%;
+    background-color: rgba(128, 0, 128, 0.363);
+    right: 0;
+    position: absolute;
+}
+#othersMessages{
+    max-width: 50%;
+    background-color: rgba(255, 0, 0, 0.295);
+    left: 0;
+    position: absolute;
+}
+#sendText{
+    height: 10%;
+    background-color: springgreen;
+    overflow: hidden;
+}
+textarea{
+    width: 80%;
+    height: 100%;
+    vertical-align: middle;
+    resize: none;
+    overflow: auto;
+}
+input{
+    width: 18%;
+    height: 90%;
+}
+.myChatBox{
+    background-color: teal;
+    border-radius: 20%;
+    padding: 5px;
+    position: relative;
+    right: 0;
+}
+.myChatBox p{
+    word-break: break-all;
+}

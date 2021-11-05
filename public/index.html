@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset = "UTF-8">
+    <meta name = "viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatto</title>
+    <link rel = "stylesheet" href="style/style.css">
+    <script src="/socket.io/socket.io.js"></script>
+</head>
+<body>
+    <script type = "module">
+        import main from "./scripts/main.js";
+
+        const base = main();
+
+        const socket = io();
+
+        socket.on("connect", () => {
+
+            const userId = socket.id;
+            base.addUser({userId: userId});
+            console.log(`User ${userId} connected.`);
+        })
+
+        const sendButton = document.getElementById("sendButton");
+        sendButton.onclick = base.createLocalBox;
+
+    </script>
+
+    <div class = "middleColumn center">
+        <div id = "messages">
+            <div id = "othersMessages">
+                
+            </div>
+
+            <div id = "myMessages">
+                
+            </div>
+        </div>
+        <div id = "sendText">
+            <textarea id = "writeMessage"></textarea>
+            <input type = "button" value = "Enviar" id = "sendButton">
+        </div>
+    </div>
+</body>
+</html>
