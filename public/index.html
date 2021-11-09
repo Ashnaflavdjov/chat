@@ -22,9 +22,29 @@
             console.log(`User ${userId} connected.`);
         })
 
-        const sendButton = document.getElementById("sendButton");
-        sendButton.onclick = base.createLocalBox;
+        socket.on("receive", (message) => {
+            
+            const userId = socket.id;
 
+            if(message.userId != userId){
+
+                base.receiveMessage({userId: userId, text: message});
+                console.log(`Received from ${message.userId}: ${message.text}`)
+            }
+        })
+
+        function messageHandler(){
+
+            const userId = socket.id;
+            let message = document.getElementById("writeMessage").value;
+            socket.emit("send", ({userId: userId, text: message}));
+            base.checkMessage(userId);
+            //console.log(base.users);
+        }
+
+        const sendButton = document.getElementById("sendButton");
+        sendButton.onclick = messageHandler;
+        
     </script>
 
     <div class = "middleColumn center">

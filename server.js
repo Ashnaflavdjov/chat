@@ -22,6 +22,11 @@ sockets.on("connection", (socket) => {
         base.removeUser({userId: userId});
         console.log(`-> User ${userId} disconnected.`);
     })
+
+    socket.on("send", (message) => {
+
+        sockets.emit("receive", (message));
+    })
 })
 
 server.listen(47, () => {
