@@ -17,6 +17,7 @@
 
         socket.on("connect", () => {
 
+            socket.id = prompt("seu nome por favor");
             const userId = socket.id;
             base.addUser({userId: userId});
             console.log(`User ${userId} connected.`);
@@ -28,7 +29,8 @@
 
             if(message.userId != userId){
 
-                base.receiveMessage({userId: userId, text: message});
+                base.receiveMessage(message, userId);
+                
                 console.log(`Received from ${message.userId}: ${message.text}`)
             }
         })
@@ -37,7 +39,10 @@
 
             const userId = socket.id;
             let message = document.getElementById("writeMessage").value;
-            socket.emit("send", ({userId: userId, text: message}));
+            if(message != ""){
+
+                socket.emit("send", ({userId: userId, text: message}));
+            }
             base.checkMessage(userId);
             //console.log(base.users);
         }
@@ -49,13 +54,7 @@
 
     <div class = "middleColumn center">
         <div id = "messages">
-            <div id = "othersMessages">
-                
-            </div>
-
-            <div id = "myMessages">
-                
-            </div>
+            
         </div>
         <div id = "sendText">
             <textarea id = "writeMessage"></textarea>
