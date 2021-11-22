@@ -1,14 +1,20 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-    <meta charset = "UTF-8">
-    <meta name = "viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chatto</title>
-    <link rel = "stylesheet" href="style/style.css">
+    <link rel="stylesheet" href="style/style.css">
     <script src="/socket.io/socket.io.js"></script>
 </head>
+
 <body>
-    <script type = "module">
+    <script type="module">
         import main from "./scripts/main.js";
 
         const base = main();
@@ -19,29 +25,28 @@
 
             socket.id = prompt("seu nome por favor");
             const userId = socket.id;
-            base.addUser({userId: userId});
+            base.addUser({ userId: userId });
             console.log(`User ${userId} connected.`);
         })
 
         socket.on("receive", (message) => {
-            
+
             const userId = socket.id;
 
-            if(message.userId != userId){
+            if (message.userId != userId) {
 
                 base.receiveMessage(message, userId);
-                
+
                 console.log(`Received from ${message.userId}: ${message.text}`)
             }
         })
 
-        function messageHandler(){
-
+        function messageHandler() {
             const userId = socket.id;
             let message = document.getElementById("writeMessage").value;
-            if(message != ""){
+            if (message != "") {
 
-                socket.emit("send", ({userId: userId, text: message}));
+                socket.emit("send", ({ userId: userId, text: message }));
             }
             base.checkMessage(userId);
             //console.log(base.users);
@@ -49,17 +54,22 @@
 
         const sendButton = document.getElementById("sendButton");
         sendButton.onclick = messageHandler;
-        
+
     </script>
 
-    <div class = "middleColumn center">
-        <div id = "messages">
-            
+    <div class="middleColumn">
+        <header>
+            <h1>ChatTo <i class="fa fa-paper-plane" aria-hidden="true"></i></h1>
+            <p>Talk to everyone!</p>
+        </header>
+        <div id="messages">
+
         </div>
-        <div id = "sendText">
-            <textarea id = "writeMessage"></textarea>
-            <input type = "button" value = "Enviar" id = "sendButton">
+        <div id="sendText">
+            <textarea id="writeMessage"></textarea>
+            <button type="submit" id="sendButton"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
         </div>
     </div>
 </body>
+
 </html>

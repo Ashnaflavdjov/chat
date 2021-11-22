@@ -1,60 +1,116 @@
 *{
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
 }
 
 html, body{
     height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.center{
-    margin: 0 auto;
-}
 
 .middleColumn{
     width: 50%;
     height: 100%;
-    background-color: slateblue;
+    flex-direction: column;
+    align-content: center;
+    display: flex;
+    justify-content: center;
+    border-radius: 30px 30px 0 0;
+    background-color: #0f393b;
 }
-
+header {
+    padding: 10px 30px;
+    height: 70px;
+    width: 100%;
+}
+header h1{
+    font-size: 28px;
+    color: rgb(240, 240, 240);
+}
+header p{
+    font-size: 14px;
+    color: #edcb50;
+}
 #messages{
-    height: 90%;
-    background-color: sienna;
+    border-radius: 30px 30px 0 0;
+    height: 80%;
+    background-color: #ea7f4a;
     overflow: auto;
     width: 100%;
     position: relative;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
 }
 
 #sendText{
-    height: 10%;
-    background-color: springgreen;
+    height: 50px;
     overflow: hidden;
+    display: flex;
+    position: relative;
 }
 
 textarea{
-    width: 80%;
+    width: 100%;
     height: 100%;
     vertical-align: middle;
     resize: none;
-    overflow: auto;
+    outline: none;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 5px 40px 5px 5px;
 }
-
-input{
-    width: 18%;
-    height: 90%;
-}
-
-.myChatBox, .othersChatBox{
-    border-radius: 10%;
-    padding: 5px;
-    width: fit-content;
-    margin: 3px 0;
-}
-
-.myChatBox{
-    background-color: teal;
+#sendText button{
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    top: 50%;
+    right: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: translate(0, -50%);
+    font-size: 30px;
+    border: none;
+    background: none;
+    color: #0f393b;
 }
 
 .othersChatBox{
-    background-color: darkgray;
+    border-radius: 8px 8px 8px 0;
+    padding: 5px;
+    max-width: 70%;
+    width: fit-content;
+    margin: 3px 0;
+    background-color: #f6f5ef;
+    align-self: flex-start;
+}
+
+.myChatBox{
+    border-radius: 8px 8px 0 8px;
+    background-color: #0f393b;
+    padding: 5px;
+    max-width: 70%;
+    width: fit-content;
+    margin: 3px 0;
+    align-self: flex-end;
+    color: rgb(240, 240, 240);
+}
+
+.othersChatBox p > p{
+    font-size: 12px;
+    text-align: right;
+    color: #0f393b;
+}
+@media  screen and (max-width: 768px) {
+    .middleColumn{
+        width: 90%;
+    }
 }

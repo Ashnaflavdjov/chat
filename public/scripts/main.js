@@ -1,15 +1,15 @@
-export default function main(){
+export default function main() {
 
     const users = {
 
     }
     // não preciso dessa função, quase certeza;
-    function checkMessage(userId){
+    function checkMessage(userId) {
 
         let text = document.getElementById("writeMessage").value;
 
-        if(text != ""){
-        
+        if (text != "") {
+
             users[userId].sent.push(text);
             createMyBox(text);
         }
@@ -18,18 +18,18 @@ export default function main(){
     }
 
     var myBoxes = 0;
-    
-    function createMyBox(message){
+
+    function createMyBox(message) {
 
         let newChatBox = document.createElement("div");
         newChatBox.setAttribute("class", "myChatBox");
         let paragraph = document.createElement("p");
-        
+
         newChatBox.setAttribute("id", `chatBox${myBoxes}`);
         document.getElementById("messages").appendChild(newChatBox);
         let lastChatBox = document.getElementById(`chatBox${myBoxes}`);
         lastChatBox.appendChild(paragraph);
-        
+
         paragraph.innerHTML = message;
 
         myBoxes++;
@@ -37,31 +37,34 @@ export default function main(){
 
     var OUBoxes = 0;
 
-    function createOUBox(message){
+    function createOUBox(message) {
 
         let newChatBox = document.createElement("div");
         newChatBox.setAttribute("class", "othersChatBox");
         let paragraph = document.createElement("p");
-        
+
         newChatBox.setAttribute("id", `oChatBox${OUBoxes}`);
         document.getElementById("messages").appendChild(newChatBox);
         let lastChatBox = document.getElementById(`oChatBox${OUBoxes}`);
         lastChatBox.appendChild(paragraph);
-        
-        paragraph.innerHTML = message.text;
 
+        paragraph.innerHTML = `
+        ${message.text}
+        <p>${message.userId}</p>
+        `;
         OUBoxes++;
     }
 
-    function receiveMessage(message, userId){
+    function receiveMessage(message, userId) {
 
         users[userId].received.push(message);
 
         console.log(users);
+        console.log(message.userId);
         createOUBox(message);
     }
 
-    function addUser(command){
+    function addUser(command) {
 
         const userId = command.userId;
 
@@ -71,14 +74,14 @@ export default function main(){
         }
     }
 
-    function removeUser(command){
+    function removeUser(command) {
 
         const userId = command.userId;
 
         delete users[userId];
     }
 
-    return{
+    return {
         users,
         checkMessage,
         addUser,
