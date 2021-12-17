@@ -14,13 +14,19 @@ const base = main();
 sockets.on("connection", (socket) => {
 
     const userId = socket.id;
-    base.addUser({userId: userId});
-    console.log(`-> User ${userId} added.`);
+    let name;
+
+    socket.on("add", (command) => {
+
+        name = command.name;
+        base.addUser({userId, name});
+        console.log(`-> User ${name} connected.`);
+    })
 
     socket.on("disconnect", () => {
 
         base.removeUser({userId: userId});
-        console.log(`-> User ${userId} disconnected.`);
+        console.log(`-> User ${name} disconnected.`);
     })
 
     socket.on("send", (message) => {

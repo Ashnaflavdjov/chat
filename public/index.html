@@ -20,13 +20,14 @@
         const base = main();
 
         const socket = io();
+        let name;
 
         socket.on("connect", () => {
 
-            socket.id = prompt("seu nome por favor");
             const userId = socket.id;
-            base.addUser({ userId: userId });
-            console.log(`User ${userId} connected.`);
+            name = prompt("Choose your name");
+            base.addUser({userId, name});
+            socket.emit("add", {userId, name});
         })
 
         socket.on("receive", (message) => {
@@ -37,23 +38,22 @@
 
                 base.receiveMessage(message, userId);
 
-                console.log(`Received from ${message.userId}: ${message.text}`)
+                console.log(`Received from ${message.name}: ${message.text}`)
             }
         })
 
-        function messageHandler() {
+        const sendButton = document.getElementById("sendButton");
+        sendButton.onclick = () => {
+            
             const userId = socket.id;
             let message = document.getElementById("writeMessage").value;
             if (message != "") {
 
-                socket.emit("send", ({ userId: userId, text: message }));
+                socket.emit("send", ({ userId, name, text: message }));
             }
+            
             base.checkMessage(userId);
-            //console.log(base.users);
         }
-
-        const sendButton = document.getElementById("sendButton");
-        sendButton.onclick = messageHandler;
 
     </script>
 

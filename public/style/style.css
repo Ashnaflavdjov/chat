@@ -13,6 +13,9 @@ html, body{
     align-items: center;
 }
 
+body{
+    background-image: URL("../images/análise.jpg");
+}
 
 .middleColumn{
     width: 50%;

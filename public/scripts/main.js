@@ -48,10 +48,12 @@ export default function main() {
         let lastChatBox = document.getElementById(`oChatBox${OUBoxes}`);
         lastChatBox.appendChild(paragraph);
 
-        paragraph.innerHTML = `
-        ${message.text}
-        <p>${message.userId}</p>
-        `;
+        paragraph.textContent = message.text;
+
+        let nameP = document.createElement("p");
+        nameP.innerText = message.name;
+        paragraph.appendChild(nameP);
+
         OUBoxes++;
     }
 
@@ -59,16 +61,16 @@ export default function main() {
 
         users[userId].received.push(message);
 
-        console.log(users);
-        console.log(message.userId);
         createOUBox(message);
     }
 
     function addUser(command) {
 
         const userId = command.userId;
+        const name = command.name;
 
         users[userId] = {
+            name,
             sent: [],
             received: []
         }
